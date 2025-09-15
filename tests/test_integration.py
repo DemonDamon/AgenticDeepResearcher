@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-agenticx-for-deepsearch 集成测试
+AgenticDeepResearcher 集成测试
 测试完整的工作流执行流程
 """
 

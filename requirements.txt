@@ -1,4 +1,4 @@
-# agenticx-for-deepsearch dependencies
+# AgenticDeepResearcher dependencies
 
 agenticx
 

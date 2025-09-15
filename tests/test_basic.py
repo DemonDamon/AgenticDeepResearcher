@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-agenticx-for-deepsearch 基础测试
+AgenticDeepResearcher 基础测试
 """
 
 import pytest

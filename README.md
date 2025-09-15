@@ -221,7 +221,7 @@ sequenceDiagram
 ```bash
 # 克隆项目
 git clone <repository_url>
-cd agenticx-for-deepsearch
+cd AgenticDeepResearcher
 
 # 安装依赖
 pip install -r requirements.txt
@@ -348,7 +348,7 @@ Execution Metrics
 ## 📁 项目结构
 
 ```
-agenticx-for-deepsearch/
+AgenticDeepResearcher/
 ├── .vscode/                   # VS Code 配置
 ├── agents/                    # 智能体定义
 │   ├── __init__.py

@@ -1,5 +1,5 @@
 """
-agenticx-for-deepsearch agents package
+AgenticDeepResearcher agents package
 """
 
 from .query_generator import QueryGeneratorAgent

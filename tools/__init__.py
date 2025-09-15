@@ -1,5 +1,5 @@
 """
-agenticx-for-deepsearch toolkit
+AgenticDeepResearcher toolkit
 """
 
 from .google_search import GoogleSearchTool, MockGoogleSearchTool
