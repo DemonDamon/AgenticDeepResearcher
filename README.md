@@ -78,8 +78,6 @@ graph TD
 
     subgraph Workflows
         B(unified_research_workflow.py)
-        C(interactive_deep_search_workflow.py)
-        D(deep_search_workflow.py)
     end
 
     subgraph Agents
@@ -114,15 +112,16 @@ graph TD
     end
 
     A --> B
-    A --> C
     B --> E
     B --> F
     B --> G
-    C --> E
-    C --> F
-    C --> G
-    D --> F
-    D --> G
+    B --> H
+    B --> I
+    B --> Q
+    B --> R
+    B --> S
+    B --> T
+    B --> U
     F --> J
     F --> K
     F --> L
@@ -130,20 +129,13 @@ graph TD
     G --> N
     G --> O
     G --> P
-    C --> Q
-    C --> R
-    C --> S
-    C --> T
-    D --> U
     U --> V
     U --> W
 ```
 
 *   **用户界面 (`main.py`)**: 作为应用的入口，负责解析命令行参数并启动相应的工作流。
 *   **工作流层 (`workflows/`)**: 负责编排整个研究过程。
-    *   `unified_research_workflow.py`: 为不同的研究模式（基础、交互式、高级）提供统一的入口。
-    *   `interactive_deep_search_workflow.py`: 管理交互式研究过程，包括用户澄清和反馈循环。
-    *   `deep_search_workflow.py`: 实现核心的多轮反思性研究逻辑。
+    *   `unified_research_workflow.py`: 为不同的研究模式（基础、交互式、高级）提供统一的入口和实现。
 *   **智能体层 (`agents/`)**: 一组专门的AI智能体，每个智能体在研究过程中负责特定的任务。
     *   `planner.py`: 制定研究策略并识别知识空白。
     *   `query_generator.py`: 根据研究上下文生成相关的搜索查询。
@@ -162,36 +154,35 @@ graph TD
 sequenceDiagram
     participant User
     participant Main
-    participant InteractiveWorkflow as Interactive Deep Search Workflow
-    participant DeepWorkflow as Deep Search Workflow
+    participant UnifiedWorkflow as Unified Research Workflow
     participant QueryGenerator as Query Generator Agent
     participant SearchTool as Search Tool
     participant Summarizer as Research Summarizer Agent
     participant ReportBuilder as Report Builder
 
-    User->>Main: 启动研究 (research_topic)
-    Main->>InteractiveWorkflow: execute(research_topic, interactive=True)
-    InteractiveWorkflow->>QueryGenerator: 生成初始查询
-    QueryGenerator-->>InteractiveWorkflow: 返回查询
-    InteractiveWorkflow->>SearchTool: 执行初始搜索
-    SearchTool-->>InteractiveWorkflow: 返回搜索结果
-    InteractiveWorkflow->>InteractiveWorkflow: 初步反思
-    InteractiveWorkflow->>User: 澄清问题
-    User-->>InteractiveWorkflow: 回答问题
-    InteractiveWorkflow->>InteractiveWorkflow: 生成思考过程
-    loop 多轮深度搜索
-        InteractiveWorkflow->>QueryGenerator: 生成搜索查询
-        QueryGenerator-->>InteractiveWorkflow: 返回查询
-        InteractiveWorkflow->>SearchTool: 执行搜索
-        SearchTool-->>InteractiveWorkflow: 返回搜索结果
-        InteractiveWorkflow->>Summarizer: 总结和分析
-        Summarizer-->>InteractiveWorkflow: 返回总结和知识空白
+    User->>Main: 启动研究 (research_topic, mode)
+    Main->>UnifiedWorkflow: execute(research_topic, mode)
+    alt Interactive Mode
+        UnifiedWorkflow->>QueryGenerator: 生成初始查询
+        QueryGenerator-->>UnifiedWorkflow: 返回查询
+        UnifiedWorkflow->>SearchTool: 执行初始搜索
+        SearchTool-->>UnifiedWorkflow: 返回搜索结果
+        UnifiedWorkflow->>UnifiedWorkflow: 初步反思
+        UnifiedWorkflow->>User: 澄清问题
+        User-->>UnifiedWorkflow: 回答问题
     end
-    InteractiveWorkflow->>DeepWorkflow: _generate_comprehensive_report
-    DeepWorkflow->>ReportBuilder: 生成报告
-    ReportBuilder-->>DeepWorkflow: 返回报告
-    DeepWorkflow-->>InteractiveWorkflow: 返回报告
-    InteractiveWorkflow-->>Main: 返回最终结果
+    UnifiedWorkflow->>UnifiedWorkflow: 生成思考过程
+    loop 多轮深度搜索
+        UnifiedWorkflow->>QueryGenerator: 生成搜索查询
+        QueryGenerator-->>UnifiedWorkflow: 返回查询
+        UnifiedWorkflow->>SearchTool: 执行搜索
+        SearchTool-->>UnifiedWorkflow: 返回搜索结果
+        UnifiedWorkflow->>Summarizer: 总结和分析
+        Summarizer-->>UnifiedWorkflow: 返回总结和知识空白
+    end
+    UnifiedWorkflow->>ReportBuilder: 生成报告
+    ReportBuilder-->>UnifiedWorkflow: 返回报告
+    UnifiedWorkflow-->>Main: 返回最终结果
     Main-->>User: 显示报告
 ```
 
