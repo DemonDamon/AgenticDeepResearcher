@@ -236,7 +236,7 @@ cp env_template.txt .env
 # BOCHAAI_API_KEY=your_bochaai_api_key  # 可选
 ```
 
-> 📋 **详细的环境变量设置指南，请参考 [ENV_SETUP.md](./ENV_SETUP.md)**
+
 
 ### 2. 运行测试
 
@@ -384,7 +384,6 @@ AgenticDeepResearcher/
 ├── README.md                # 项目文档
 ├── API.md                   # API 文档
 ├── DEVELOPMENT.md           # 开发指南
-└── ENV_SETUP.md             # 环境设置指南
 ```
 
 ## ⚙️ 配置说明
@@ -508,7 +507,7 @@ class CustomLLMProvider(BaseLLMProvider):
 4. **JSON 解析错误**: LLM 返回格式问题，系统会自动重试和修复
 5. **连接超时**: 检查网络连接，配置文件中已设置较长超时时间
 
-> 🚨 **更多详细的故障排除方法，请参考 [ENV_SETUP.md](./ENV_SETUP.md#-故障排除)**
+
 
 ### 调试模式
 
